@@ -30,6 +30,6 @@ public class Application {
     @Column(name = "CreatedAt")
     private Timestamp createdAt;
 
-    @Column(name = "CreatedBy")
+    @Column(name = "CreatedBy", nullable = false)
     private String createdBy;
 }

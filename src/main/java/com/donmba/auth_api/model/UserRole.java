@@ -19,15 +19,16 @@ public class UserRole {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column(name = "UserId")
-    private long userId;
+    @Column(name = "UserRoleId")
+    private long userRoleId;
 
     @Column(name = "CreatedAt")
     private Timestamp createdAt;
 
-    @Column(name = "CreatedBy")
+    @Column(name = "CreatedBy", nullable = false)
     private String createdBy;
 
-    @Column(name = "ApplicationId")
-    private String applicationId;
+    @ManyToOne
+    @JoinColumn(name = "ApplicationId", referencedColumnName = "ApplicationId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_Application"))
+    private Application application;
 }

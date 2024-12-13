@@ -8,31 +8,33 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@Table(name = "ApplicationRole")
 @Entity
+@Table(name = "ApplicationRole")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class ApplicationRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ApplicationRoleId")
-    private int applicationRoleId;
+    private long applicationRoleId;
 
-    @Column(name = "ApplicationId")
-    private String applicationId;
+    @ManyToOne
+    @JoinColumn(name = "ApplicationId", referencedColumnName = "ApplicationId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_Application"))
+    private Application application;
 
-    @Column(name = "UserId")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "UserRoleId", referencedColumnName = "UserRoleId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_UserRole"))
+    private UserRole userRole;
 
-    @Column(name = "CreatedByUserId")
+    @Column(name = "Active", nullable = false)
+    private int active;
+
+    @Column(name = "CreatedBy", nullable = false)
     private String createdBy;
 
-    @Column(name = "CreatedAt")
+    @Column(name = "CreatedAt", nullable = false, updatable = false)
     private Timestamp createdAt;
-
-
 }
