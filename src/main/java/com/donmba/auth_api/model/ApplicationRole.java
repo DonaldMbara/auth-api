@@ -25,10 +25,6 @@ public class ApplicationRole {
     @JoinColumn(name = "ApplicationId", referencedColumnName = "ApplicationId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_Application"))
     private Application application;
 
-    @ManyToOne
-    @JoinColumn(name = "UserRoleId", referencedColumnName = "UserRoleId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_UserRole"))
-    private UserRole userRole;
-
     @Column(name = "Active", nullable = false)
     private int active;
 

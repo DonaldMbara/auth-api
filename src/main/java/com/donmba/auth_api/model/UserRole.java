@@ -29,6 +29,10 @@ public class UserRole {
     private String createdBy;
 
     @ManyToOne
-    @JoinColumn(name = "ApplicationId", referencedColumnName = "ApplicationId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_Application"))
-    private Application application;
+    @JoinColumn(name = "UserId", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "ApplicationRoleId", nullable = false)
+    private ApplicationRole applicationRole;
 }

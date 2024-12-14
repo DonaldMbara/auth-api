@@ -1,7 +1,6 @@
 package com.donmba.auth_api.service;
 
 import com.donmba.auth_api.dto.user.UserResponse;
-import com.donmba.auth_api.model.User;
 import com.donmba.auth_api.repository.UserRepository;
 import com.donmba.auth_api.utils.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,7 +20,6 @@ public class UserService {
         return userRepository.findByUserId(id)
                 .map(UserMapper::mapToUserResponse)
                 .or(() -> {
-                    log.error("User not found with id: {}", id);
                     throw new EntityNotFoundException("User not found with id: " + id);
                 });
     }

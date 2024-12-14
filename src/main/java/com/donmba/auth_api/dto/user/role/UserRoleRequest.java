@@ -14,6 +14,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class UserRoleRequest {
 
-    private long applicationId;
+    private long applicationRoleId;
+    private long userId;
+    private long userRoleId;
     private long createdBy;
 }

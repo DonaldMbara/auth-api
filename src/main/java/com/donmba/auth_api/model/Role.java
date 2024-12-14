@@ -28,5 +28,5 @@ public class Role {
     private Timestamp createdAt;
 
     @Column(name = "CreatedBy", nullable = false)
-    private String createdBy;
+    private long createdBy;
 }

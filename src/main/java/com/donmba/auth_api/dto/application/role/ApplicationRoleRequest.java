@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ApplicationRoleRequest {
     private long applicationId;
-    private long userRoleId;
+    private int active;
     private long createdBy;
 }
