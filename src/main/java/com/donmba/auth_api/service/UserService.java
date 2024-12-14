@@ -17,11 +17,13 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Optional<UserResponse> getUser(long id){
-        Optional<User> user = Optional.ofNullable(userRepository.findByUserId(id)
-                .orElseThrow(() -> new EntityNotFoundException("User does not exist with id: " + id)));
-
-        return user.map(UserMapper::mapToUserResponse);
+    public Optional<UserResponse> getUser(long id) {
+        return userRepository.findByUserId(id)
+                .map(UserMapper::mapToUserResponse)
+                .or(() -> {
+                    log.error("User not found with id: {}", id);
+                    throw new EntityNotFoundException("User not found with id: " + id);
+                });
     }
 
 }
