@@ -1,6 +1,7 @@
 package com.donmba.auth_api.service;
 
 import com.donmba.auth_api.dto.user.UserResponse;
+import com.donmba.auth_api.model.User;
 import com.donmba.auth_api.repository.UserRepository;
 import com.donmba.auth_api.utils.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,14 @@ public class UserService {
                 .or(() -> {
                     throw new EntityNotFoundException("User not found with id: " + id);
                 });
+    }
+
+    public List<UserResponse> getUsers() {
+        List<User> users =  userRepository.findAll();
+
+        return users.stream()
+                .map(UserMapper::mapToUserResponse)
+                .toList();
     }
 
 }

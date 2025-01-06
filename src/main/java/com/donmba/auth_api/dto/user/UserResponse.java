@@ -13,11 +13,12 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class UserResponse {
 
-    private long userId;
+    private Long userId;
     private String userName;
     private String email;
     private String firstName;
     private String lastName;
-    private long createdBy;
+    private Long createdBy;
     private Timestamp createdAt;
+    private int active;
 }

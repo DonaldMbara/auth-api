@@ -19,7 +19,7 @@ public class ApplicationRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ApplicationRoleId")
-    private long applicationRoleId;
+    private Long applicationRoleId;
 
     @ManyToOne
     @JoinColumn(name = "ApplicationId", referencedColumnName = "ApplicationId", foreignKey = @ForeignKey(name = "FK_ApplicationRole_Application"))

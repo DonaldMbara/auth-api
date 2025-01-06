@@ -19,5 +19,7 @@ public class UserRequest {
     private String firstName;
     private String lastName;
     private Timestamp createdAt;
-    private long createdBy;
+    private Long createdBy;
+    private int active;
+
 }

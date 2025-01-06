@@ -12,8 +12,9 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 public class ApplicationResponse {
+    private Long applicationId;
     private String applicationName;
     private String applicationSecret;
     private Timestamp createdAt;
-    private String createdBy;
+    private Long createdBy;
 }

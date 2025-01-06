@@ -20,7 +20,7 @@ public class UserRole {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column(name = "UserRoleId")
-    private long userRoleId;
+    private Long userRoleId;
 
     @Column(name = "CreatedAt")
     private Timestamp createdAt;

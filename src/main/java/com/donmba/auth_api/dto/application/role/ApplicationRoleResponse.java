@@ -12,8 +12,9 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 public class ApplicationRoleResponse {
-    private long applicationId;
+    private Long applicationRoleId;
+    private Long applicationId;
     private int active;
-    private long createdBy;
+    private Long createdBy;
     private Timestamp createdAt;
 }

@@ -19,7 +19,7 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ApplicationId")
-    private  long applicationId;
+    private  Long applicationId;
 
     @Column(name = "ApplicationName")
     private String applicationName;
@@ -31,5 +31,5 @@ public class Application {
     private Timestamp createdAt;
 
     @Column(name = "CreatedBy", nullable = false)
-    private String createdBy;
+    private long createdBy;
 }

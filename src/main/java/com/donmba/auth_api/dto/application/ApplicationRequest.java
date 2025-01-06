@@ -14,5 +14,5 @@ import java.sql.Timestamp;
 public class ApplicationRequest {
     private String applicationName;
     private String applicationSecret;
-    private long createdBy;
+    private Long createdBy;
 }

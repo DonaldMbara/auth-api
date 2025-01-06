@@ -16,11 +16,10 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 public class User {
-
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserId")
-    private long userId;
+    private Long userId;
 
     @Column(name = "UserName")
     private String userName;
@@ -41,5 +40,8 @@ public class User {
     private Timestamp createdAt;
 
     @Column(name = "CreatedBy", nullable = false)
-    private long createdBy;
+    private Long createdBy;
+
+    @Column(name = "Active")
+    private int active;
 }
