@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/v1/auth/*",
+                                "/api/v1/auth/login",
                                 "/v2/api-docs/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
@@ -50,6 +50,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // For securely hashing passwords
+        return new BCryptPasswordEncoder();
     }
 }
