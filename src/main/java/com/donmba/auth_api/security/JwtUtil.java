@@ -12,7 +12,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // Use a generated secret key for better security.
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(String username) {
