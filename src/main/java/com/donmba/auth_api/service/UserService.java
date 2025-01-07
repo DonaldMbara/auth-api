@@ -1,6 +1,7 @@
 package com.donmba.auth_api.service;
 
 import com.donmba.auth_api.dto.ApiResponse;
+import com.donmba.auth_api.dto.user.UserRequest;
 import com.donmba.auth_api.dto.user.UserResponse;
 import com.donmba.auth_api.model.User;
 import com.donmba.auth_api.repository.UserRepository;
@@ -8,6 +9,7 @@ import com.donmba.auth_api.utils.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public ApiResponse<UserResponse> getUser(long id) {
         Optional<User> user = userRepository.findByUserId(id);
@@ -37,6 +40,28 @@ public class UserService {
                     .build();
         }
     }
+
+    public String createUser(UserRequest userRequest){
+
+        String hashedPassword = passwordEncoder.encode(userRequest.getPasswordHash());
+
+        User user = User.builder()
+                .userName(userRequest.getUserName())
+                .email(userRequest.getEmail())
+                .firstName(userRequest.getFirstName())
+                .lastName(userRequest.getLastName())
+                .passwordHash(hashedPassword)
+                .createdBy(userRequest.getCreatedBy())
+                .createdAt(userRequest.getCreatedAt())
+                .active(userRequest.getActive())
+                .build();
+
+        userRepository.save(user);
+        log.info("User {} is created", user.getUserName());
+        return "User {} is created";
+    }
+
+
 
     public ApiResponse<List<UserResponse>> getUsers() {
         List<User> users = userRepository.findAll();

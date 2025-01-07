@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,13 +17,15 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
     private JwtUtil jwtUtil;
 
     public ApiResponse<String> authenticate(String userName, String password) {
         User user = userRepository.findByUserName(userName);
 
-        if (user != null && user.getPasswordHash().equals(password)) {
+        if (user != null && passwordEncoder.matches(password, user.getPasswordHash())) {
             String token = jwtUtil.generateToken(userName);
 
             return ApiResponse.<String>builder()
@@ -31,6 +34,7 @@ public class AuthenticationService {
                     .data(token)
                     .build();
         } else {
+            // Invalid username or password
             return ApiResponse.<String>builder()
                     .message("Invalid credentials")
                     .statusCode(HttpStatus.UNAUTHORIZED.value())
@@ -38,4 +42,12 @@ public class AuthenticationService {
                     .build();
         }
     }
+
+
+//    public void updatePassword(String password, User user){
+//        String hashedPassword = passwordEncoder.encode(password);
+//        user.setPasswordHash(hashedPassword);
+//        userRepository.save(user);
+//        log.info("Password updated successfully for user {}", user.getUserName());
+//    }
 }

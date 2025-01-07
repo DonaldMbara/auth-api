@@ -9,12 +9,13 @@ public class UserMapper {
     public static UserResponse mapToUserResponse(User user) {
         return UserResponse.builder()
                 .userId(user.getUserId())
-                .userName(Optional.ofNullable(user.getUserName()).orElse("N/A"))
+                .userName(user.getUserName())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .createdBy(user.getCreatedBy())
                 .createdAt(user.getCreatedAt())
+                .active(user.getActive())
                 .build();
     }
 
