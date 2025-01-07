@@ -1,6 +1,7 @@
 package com.donmba.auth_api.controller;
 
 
+import com.donmba.auth_api.dto.ApiResponse;
 import com.donmba.auth_api.dto.application.ApplicationResponse;
 import com.donmba.auth_api.dto.application.role.ApplicationRoleResponse;
 import com.donmba.auth_api.service.ApplicationRoleService;
@@ -21,17 +22,13 @@ public class ApplicationRoleController {
 
     @GetMapping("/applicationRoleId/{applicationRoleId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ApplicationRoleResponse> getApplicationRole(@PathVariable("applicationRoleId") Long applicationRoleId){
-        Optional<ApplicationRoleResponse> applicationRoleIdResponse = applicationRoleService.getApplicationRole(applicationRoleId);
-
-        return applicationRoleIdResponse
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ApiResponse<ApplicationRoleResponse> getApplicationRole(@PathVariable("applicationRoleId") Long applicationRoleId){
+        return applicationRoleService.getApplicationRole(applicationRoleId);
     }
 
     @GetMapping("/applicationRoles")
     @ResponseStatus(HttpStatus.OK)
-    public List<ApplicationRoleResponse> getApplicationRoles(){
+    public  ApiResponse<List<ApplicationRoleResponse>> getApplicationRoles(){
         return applicationRoleService.getApplicationRoles();
     }
 

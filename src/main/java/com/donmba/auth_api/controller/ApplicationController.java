@@ -1,14 +1,13 @@
 package com.donmba.auth_api.controller;
 
+import com.donmba.auth_api.dto.ApiResponse;
 import com.donmba.auth_api.dto.application.ApplicationResponse;
 import com.donmba.auth_api.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -19,18 +18,13 @@ public class ApplicationController {
 
     @GetMapping("/applicationId/{applicationId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ApplicationResponse> getApplication(@PathVariable("applicationId") Long applicationId){
-        Optional<ApplicationResponse> applicationResponse = applicationService.getApplication(applicationId);
-
-        return applicationResponse
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ApiResponse<ApplicationResponse> getApplication(@PathVariable("applicationId") Long applicationId){
+        return applicationService.getApplication(applicationId);
     }
 
     @GetMapping("/applications")
     @ResponseStatus(HttpStatus.OK)
-    public List<ApplicationResponse> getApplications(){
+    public ApiResponse<List<ApplicationResponse>> getApplications() {
         return applicationService.getApplications();
     }
-
 }
