@@ -36,14 +36,15 @@ public class SecurityConfig {
             .cors()
             .and()
             .csrf().disable()
-            .authorizeRequests()
-            .antMatchers(
-                "/swagger-ui/**",
-                "/v3/api-docs/**",
-                "/api/v1/auth/login",
-                "/api/v1/auth/user"
-            ).permitAll() // Allow public access to these endpoints
-            .anyRequest().authenticated(); // Secure other endpoints
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/api/v1/auth/login",
+                    "/api/v1/auth/user"
+                ).permitAll() // Allow public access to these endpoints
+                .anyRequest().authenticated() // Secure other endpoints
+            );
 
         // Add JWT filter before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
