@@ -53,17 +53,25 @@ public class SecurityConfig {
     }
 
     @Bean
-     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+    
+        List<String> allowedOrigins = List.of(
+                "https://auth-api-development.up.railway.app",
+                "https://auth-api-prod-54a7.up.railway.app"
+        );
+        
+        config.setAllowedOrigins(allowedOrigins);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+    
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
+    
         return source;
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
