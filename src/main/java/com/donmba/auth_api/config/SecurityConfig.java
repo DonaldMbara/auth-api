@@ -28,40 +28,37 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/v1/auth/login",
-                                "/api/v1/auth/user",
-                                "/v2/api-docs/**",
-                                "/v3/api-docs/**",
-                                "/swagger-resources/**",
-                                "/configuration/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
-                        ).permitAll() // Public endpoint
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http
+            .cors()
+            .and()
+            .csrf().disable() 
+            .authorizeRequests()
+            .antMatchers(
+                "/swagger-ui/**", 
+                "/v3/api-docs/**", 
+                "/api/v1/auth/login",
+                 "/api/v1/auth/user",
+            ).permitAll() 
+            .anyRequest().authenticated();
 
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://auth-api-development.up.railway.app");
-        config.addAllowedOrigin("https://auth-api-prod-54a7.up.railway.app");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:4200", 
+            "https://auth-api-development.up.railway.app"
+        ));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+    
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 
 
     @Bean
