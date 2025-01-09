@@ -23,7 +23,8 @@ public class OpenApiConfig {
         .addServersItem(
             new Server().url("https://auth-api-development.up.railway.app")) // Development server
         .addServersItem(
-            new Server().url("https://auth-api-production-b852.up.railway.app")) // Production server
+            new Server()
+                .url("https://auth-api-production-b852.up.railway.app")) // Production server
         .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
         .components(
             new io.swagger.v3.oas.models.Components()
