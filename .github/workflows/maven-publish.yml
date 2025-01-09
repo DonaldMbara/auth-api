@@ -51,4 +51,4 @@ jobs:
         run: echo "This is a placeholder for deployment."
 
       - name: Deploy to Railway
-        run: railway up
+        run: echo "railway up"
