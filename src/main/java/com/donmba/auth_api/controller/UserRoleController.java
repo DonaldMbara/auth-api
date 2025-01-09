@@ -4,6 +4,7 @@ import com.donmba.auth_api.dto.ApiResponse;
 import com.donmba.auth_api.dto.user.role.UserRoleResponse;
 import com.donmba.auth_api.service.UserRoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name = "User Role", description = "Endpoints related to user role operations")
 @RequiredArgsConstructor
 public class UserRoleController {
 

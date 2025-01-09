@@ -8,10 +8,10 @@ public class UserRoleMapper {
   public static UserRoleResponse mapToUserRoleResponse(UserRole userRole) {
     return UserRoleResponse.builder()
         .userRoleId(userRole.getUserRoleId())
-        .applicationRoleId(userRole.getUserRoleId())
         .userId(userRole.getUser().getUserId())
         .createdBy(userRole.getUserRoleId())
         .createdAt(userRole.getCreatedAt())
+        .roleId(userRole.getUserRoleId())
         .build();
   }
 }

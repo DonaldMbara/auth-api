@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRoleRequest {
 
-  private Long applicationRoleId;
+  private Long roleId;
   private Long userId;
   private Long userRoleId;
   private Long createdBy;

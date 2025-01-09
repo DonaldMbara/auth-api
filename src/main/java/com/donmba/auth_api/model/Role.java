@@ -20,8 +20,15 @@ public class Role {
   @Column(name = "RoleId")
   private Long roleId;
 
+  @ManyToOne
+  @JoinColumn(name = "ApplicationId", nullable = false)
+  private Application application;
+
   @Column(name = "RoleName")
   private String roleName;
+
+  @Column(name = "Description")
+  private String description;
 
   @Column(name = "CreatedAt")
   private Timestamp createdAt;

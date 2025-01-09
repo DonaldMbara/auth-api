@@ -1,6 +1,7 @@
 package com.donmba.auth_api.service;
 
 import com.donmba.auth_api.dto.ApiResponse;
+import com.donmba.auth_api.dto.user.UserRequest;
 import com.donmba.auth_api.model.User;
 import com.donmba.auth_api.repository.UserRepository;
 import com.donmba.auth_api.security.JwtUtil;
@@ -40,6 +41,27 @@ public class AuthenticationService {
           .data(null)
           .build();
     }
+  }
+
+  public String createUser(UserRequest userRequest) {
+
+    String hashedPassword = passwordEncoder.encode(userRequest.getPasswordHash());
+
+    User user =
+        User.builder()
+            .userName(userRequest.getUserName())
+            .email(userRequest.getEmail())
+            .firstName(userRequest.getFirstName())
+            .lastName(userRequest.getLastName())
+            .passwordHash(hashedPassword)
+            .createdBy(userRequest.getCreatedBy())
+            .createdAt(userRequest.getCreatedAt())
+            .active(userRequest.getActive())
+            .build();
+
+    userRepository.save(user);
+    log.info("User {} is created", user.getUserName());
+    return "User {} is created";
   }
 
   //    public void updatePassword(String password, User user){

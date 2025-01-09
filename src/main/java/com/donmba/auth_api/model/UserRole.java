@@ -24,13 +24,13 @@ public class UserRole {
   private Timestamp createdAt;
 
   @Column(name = "CreatedBy", nullable = false)
-  private String createdBy;
+  private Long createdBy;
 
   @ManyToOne
   @JoinColumn(name = "UserId", nullable = false)
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "ApplicationRoleId", nullable = false)
-  private ApplicationRole applicationRole;
+  @JoinColumn(name = "RoleId", nullable = false)
+  private Role role;
 }

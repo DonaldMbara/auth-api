@@ -2,16 +2,21 @@ package com.donmba.auth_api.controller;
 
 import com.donmba.auth_api.dto.ApiResponse;
 import com.donmba.auth_api.dto.auth.AuthenticationRequest;
+import com.donmba.auth_api.dto.user.UserRequest;
 import com.donmba.auth_api.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Endpoints related to authentication operations")
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-  @Autowired private AuthenticationService authenticationService;
+  private final AuthenticationService authenticationService;
 
   @Operation(
       summary = "Logs in user and provide bearer token",
@@ -20,5 +25,12 @@ public class AuthController {
   public ApiResponse<String> login(@RequestBody AuthenticationRequest authenticationRequest) {
     return authenticationService.authenticate(
         authenticationRequest.getUserName(), authenticationRequest.getPasswordHash());
+  }
+
+  @Operation(summary = "Creates a user")
+  @PostMapping("/register")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void createUser(@RequestBody UserRequest userRequest) {
+    authenticationService.createUser(userRequest);
   }
 }
