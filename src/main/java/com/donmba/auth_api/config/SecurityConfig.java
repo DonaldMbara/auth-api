@@ -56,7 +56,7 @@ public class SecurityConfig {
     List<String> allowedOrigins =
         List.of(
             "https://auth-api-development.up.railway.app",
-            "https://auth-api-prod-54a7.up.railway.app");
+            "https://auth-api-production-b852.up.railway.app");
 
     config.setAllowedOrigins(allowedOrigins);
     config.addAllowedHeader("*");

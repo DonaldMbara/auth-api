@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoleResponse {
   private Long roleId;
+  private Long applicationId;
   private String roleName;
+  private String description;
   private Long createdBy;
   private Timestamp createdAt;
 }

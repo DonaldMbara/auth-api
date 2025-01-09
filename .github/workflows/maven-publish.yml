@@ -51,7 +51,4 @@ jobs:
         run: echo "This is a placeholder for deployment."
 
       - name: Deploy to Railway
-        if: ${{ github.ref_name == 'main' }} # Only deploy if branch is 'main'
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up
+        run: echo "railway up"

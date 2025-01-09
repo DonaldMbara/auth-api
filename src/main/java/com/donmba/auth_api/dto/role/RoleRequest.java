@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class RoleRequest {
+  private Long applicationId;
   private String roleName;
+  private String description;
   private Long createdBy;
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRoleResponse {
   private Long userRoleId;
-  private Long applicationRoleId;
+  private Long roleId;
   private Long userId;
   private Long createdBy;
   private Timestamp createdAt;
