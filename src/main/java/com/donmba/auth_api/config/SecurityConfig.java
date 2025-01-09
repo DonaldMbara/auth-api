@@ -57,7 +57,7 @@ public class SecurityConfig {
         List.of(
             "https://auth-api-development.up.railway.app",
             "https://auth-api-production-b852.up.railway.app",
-            "http://localhost:8002");
+            "http://localhost:4200");
 
     config.setAllowedOrigins(allowedOrigins);
     config.addAllowedHeader("*");
