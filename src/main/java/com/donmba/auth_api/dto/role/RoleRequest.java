@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class RoleRequest {
-    private String roleName;
-    private Long createdBy;
+  private String roleName;
+  private Long createdBy;
 }

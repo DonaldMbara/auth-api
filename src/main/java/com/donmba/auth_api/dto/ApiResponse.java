@@ -1,20 +1,18 @@
 package com.donmba.auth_api.dto;
 
-import com.donmba.auth_api.dto.application.ApplicationResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO: updated response classes to use same structure using this class
+// TODO: updated response classes to use same structure using this class
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ApiResponse<T> {
 
-    private String message;
-    private int statusCode;
-    private T data;
+  private String message;
+  private int statusCode;
+  private T data;
 }
-

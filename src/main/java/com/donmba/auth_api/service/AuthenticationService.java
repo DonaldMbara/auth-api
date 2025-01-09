@@ -16,38 +16,36 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+  @Autowired private JwtUtil jwtUtil;
 
-    public ApiResponse<String> authenticate(String userName, String password) {
-        User user = userRepository.findByUserName(userName);
+  public ApiResponse<String> authenticate(String userName, String password) {
+    User user = userRepository.findByUserName(userName);
 
-        if (user != null && passwordEncoder.matches(password, user.getPasswordHash())) {
-            String token = jwtUtil.generateToken(userName);
+    if (user != null && passwordEncoder.matches(password, user.getPasswordHash())) {
+      String token = jwtUtil.generateToken(userName);
 
-            return ApiResponse.<String>builder()
-                    .message("Authentication successful")
-                    .statusCode(HttpStatus.OK.value())
-                    .data(token)
-                    .build();
-        } else {
-            // Invalid username or password
-            return ApiResponse.<String>builder()
-                    .message("Invalid credentials")
-                    .statusCode(HttpStatus.UNAUTHORIZED.value())
-                    .data(null)
-                    .build();
-        }
+      return ApiResponse.<String>builder()
+          .message("Authentication successful")
+          .statusCode(HttpStatus.OK.value())
+          .data(token)
+          .build();
+    } else {
+      // Invalid username or password
+      return ApiResponse.<String>builder()
+          .message("Invalid credentials")
+          .statusCode(HttpStatus.UNAUTHORIZED.value())
+          .data(null)
+          .build();
     }
+  }
 
-
-//    public void updatePassword(String password, User user){
-//        String hashedPassword = passwordEncoder.encode(password);
-//        user.setPasswordHash(hashedPassword);
-//        userRepository.save(user);
-//        log.info("Password updated successfully for user {}", user.getUserName());
-//    }
+  //    public void updatePassword(String password, User user){
+  //        String hashedPassword = passwordEncoder.encode(password);
+  //        user.setPasswordHash(hashedPassword);
+  //        userRepository.save(user);
+  //        log.info("Password updated successfully for user {}", user.getUserName());
+  //    }
 }
