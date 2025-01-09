@@ -39,7 +39,7 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/swagger-ui/**"),
                         new AntPathRequestMatcher("/v3/api-docs/**"),
                         new AntPathRequestMatcher("/api/v1/auth/login"),
-                        new AntPathRequestMatcher("/api/v1/auth/user"))
+                        new AntPathRequestMatcher("/api/v1/auth/register"))
                     .permitAll()
                     .anyRequest()
                     .authenticated());
@@ -56,7 +56,8 @@ public class SecurityConfig {
     List<String> allowedOrigins =
         List.of(
             "https://auth-api-development.up.railway.app",
-            "https://auth-api-production-b852.up.railway.app");
+            "https://auth-api-production-b852.up.railway.app",
+            "http://localhost:8002");
 
     config.setAllowedOrigins(allowedOrigins);
     config.addAllowedHeader("*");
