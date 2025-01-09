@@ -58,8 +58,7 @@ public class SecurityConfig {
         List.of(
             "https://auth-api-development.up.railway.app",
             "https://auth-api-production-b852.up.railway.app",
-            "https://auth-app-six-nu.vercel.app"
-            ));
+            "https://auth-app-six-nu.vercel.app"));
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     config.setAllowedHeaders(List.of("*")); // Allow all headers
     config.setExposedHeaders(
