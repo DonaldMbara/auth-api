@@ -13,5 +13,5 @@ public class RoleRequest {
   private Long applicationId;
   private String roleName;
   private String description;
-  private Long createdBy;
+  private Long createdBy = 1L;
 }

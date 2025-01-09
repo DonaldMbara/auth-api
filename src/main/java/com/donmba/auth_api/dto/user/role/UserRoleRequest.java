@@ -14,5 +14,5 @@ public class UserRoleRequest {
   private Long roleId;
   private Long userId;
   private Long userRoleId;
-  private Long createdBy;
+  private Long createdBy = 1L;
 }

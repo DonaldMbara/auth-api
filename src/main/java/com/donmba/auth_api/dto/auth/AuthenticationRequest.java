@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthenticationRequest {
 
   private String userName;
-  private String
-      passwordHash; // TODO: this is currently security flaw, make sure we rehash code and not pass
-  // hashed in payload
+  private String passwordHash;
 }

@@ -18,6 +18,6 @@ public class UserRequest {
   private String firstName;
   private String lastName;
   private Timestamp createdAt;
-  private Long createdBy;
-  private int active;
+  private Long createdBy = 1L;
+  private int active = 1;
 }
