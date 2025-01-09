@@ -52,7 +52,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
-          railway up --projectId ${{ secrets.RAILWAY_PROJECT_ID }} --environment ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+          railway up -- --projectId ${{ secrets.RAILWAY_PROJECT_ID }} --environment ${{ github.ref_name == 'main' && 'production' || 'staging' }}
 
       - name: Confirm Deployment
         run: echo "Deployment to Railway for ${{ github.ref_name }} branch completed!"
