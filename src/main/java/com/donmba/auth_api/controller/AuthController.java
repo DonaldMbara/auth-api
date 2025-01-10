@@ -24,7 +24,9 @@ public class AuthController {
       description = "Provide an username and password to give you access to the system")
   @PostMapping("/login")
   public ApiResponse<String> login(
-      @RequestBody AuthenticationRequest authenticationRequest, @RequestParam String redirectUri, HttpServletResponse response) {
+      @RequestBody AuthenticationRequest authenticationRequest,
+      @RequestParam String redirectUri,
+      HttpServletResponse response) {
     return authenticationService.authenticate(authenticationRequest, redirectUri, response);
   }
 

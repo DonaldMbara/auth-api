@@ -6,9 +6,8 @@ import com.donmba.auth_api.dto.user.UserRequest;
 import com.donmba.auth_api.model.User;
 import com.donmba.auth_api.repository.UserRepository;
 import com.donmba.auth_api.security.JwtUtil;
-import java.util.List;
-
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,9 @@ public class AuthenticationService {
   @Autowired private JwtUtil jwtUtil;
 
   public ApiResponse<String> authenticate(
-      @RequestBody AuthenticationRequest loginRequest, @RequestParam String redirectUri, HttpServletResponse response) {
+      @RequestBody AuthenticationRequest loginRequest,
+      @RequestParam String redirectUri,
+      HttpServletResponse response) {
 
     String userName = loginRequest.getUserName();
     String password = loginRequest.getPasswordHash();
