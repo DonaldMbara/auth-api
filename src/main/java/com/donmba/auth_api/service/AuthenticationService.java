@@ -64,6 +64,8 @@ public class AuthenticationService {
       }
 
       // Add the cookie to the response and redirect
+      response.setHeader(
+          HttpHeaders.LOCATION, redirectUri); // Set the Location header for redirection
       return ApiResponse.<String>builder()
           .message("Login successful, redirecting...")
           .statusCode(HttpStatus.FOUND.value())
