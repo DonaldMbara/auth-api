@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,8 +27,10 @@ public class AuthController {
   public ApiResponse<String> login(
       @RequestBody AuthenticationRequest authenticationRequest,
       @RequestParam String redirectUri,
-      HttpServletResponse response) {
-    return authenticationService.authenticate(authenticationRequest, redirectUri, response);
+      HttpServletResponse response,
+      BindingResult bindingResult) {
+    return authenticationService.authenticate(
+        authenticationRequest, redirectUri, response, bindingResult);
   }
 
   @Operation(summary = "Creates a user")
