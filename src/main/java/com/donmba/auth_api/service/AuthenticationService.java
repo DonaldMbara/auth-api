@@ -11,6 +11,7 @@ import com.donmba.auth_api.security.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -118,7 +119,11 @@ public class AuthenticationService {
             .lastName(userRequest.getLastName())
             .passwordHash(hashedPassword)
             .createdBy(userRequest.getCreatedBy())
-            .createdAt(Timestamp.from(userRequest.getCreatedAt()))
+            .createdAt(
+                Timestamp.from(
+                    userRequest.getCreatedAt() != null
+                        ? userRequest.getCreatedAt()
+                        : Instant.now()))
             .active(userRequest.getActive())
             .build();
 
