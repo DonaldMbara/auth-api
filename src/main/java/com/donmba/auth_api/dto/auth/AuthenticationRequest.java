@@ -1,5 +1,6 @@
 package com.donmba.auth_api.dto.auth;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationRequest {
 
+  @NotBlank(message = "Username cannot be empty")
   private String userName;
-  private String
-      passwordHash; // TODO: this is currently security flaw, make sure we rehash code and not pass
-  // hashed in payload
+
+  @NotBlank(message = "Password cannot be empty")
+  private String passwordHash;
 }

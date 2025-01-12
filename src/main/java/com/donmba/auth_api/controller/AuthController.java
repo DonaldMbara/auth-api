@@ -6,8 +6,10 @@ import com.donmba.auth_api.dto.user.UserRequest;
 import com.donmba.auth_api.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,11 +22,15 @@ public class AuthController {
 
   @Operation(
       summary = "Logs in user and provide bearer token",
-      description = "Provide an username and password to give you access to the system")
+      description = "Provide an username/email and password to give you access to the system")
   @PostMapping("/login")
-  public ApiResponse<String> login(@RequestBody AuthenticationRequest authenticationRequest) {
+  public ApiResponse<String> login(
+      @RequestBody AuthenticationRequest authenticationRequest,
+      @RequestParam String redirectUri,
+      HttpServletResponse response,
+      BindingResult bindingResult) {
     return authenticationService.authenticate(
-        authenticationRequest.getUserName(), authenticationRequest.getPasswordHash());
+        authenticationRequest, redirectUri, response, bindingResult);
   }
 
   @Operation(summary = "Creates a user")

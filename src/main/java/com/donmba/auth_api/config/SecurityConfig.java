@@ -33,6 +33,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
         .authorizeHttpRequests(
             auth ->
                 auth.requestMatchers(
@@ -42,8 +43,8 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/api/v1/auth/register"))
                     .permitAll()
                     .anyRequest()
-                    .authenticated());
-    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                    .authenticated())
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
@@ -53,15 +54,15 @@ public class SecurityConfig {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
 
-    List<String> allowedOrigins =
+    config.setAllowedOrigins(
         List.of(
             "https://auth-api-development.up.railway.app",
             "https://auth-api-production-b852.up.railway.app",
-            "http://localhost:8002");
-
-    config.setAllowedOrigins(allowedOrigins);
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
+            "https://auth-app-six-nu.vercel.app"));
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    config.setAllowedHeaders(List.of("*")); // Allow all headers
+    config.setExposedHeaders(
+        List.of("Authorization", "Content-Type")); // Expose necessary headers if needed
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);

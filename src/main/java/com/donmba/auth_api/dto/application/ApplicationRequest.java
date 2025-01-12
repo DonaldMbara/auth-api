@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class ApplicationRequest {
   private String applicationName;
   private String applicationSecret;
-  private Long createdBy;
+  private Long createdBy = 1L;
 }
