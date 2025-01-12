@@ -114,10 +114,10 @@ public class AuthenticationService {
         (userRequest.getCreatedBy() != null)
             ? userRequest.getCreatedBy()
             : 1L; // Default to system user
-    Instant createdAt =
+    Timestamp createdAt =
         (userRequest.getCreatedAt() != null)
             ? userRequest.getCreatedAt()
-            : Instant.now(); // Default to current timestamp
+            : Timestamp.from(Instant.now()); // Default to current timestamp
     int active =
         (userRequest.getActive() != 0) ? userRequest.getActive() : 1; // Default to active (1)
 
@@ -131,7 +131,7 @@ public class AuthenticationService {
             .lastName(userRequest.getLastName())
             .passwordHash(hashedPassword)
             .createdBy(createdBy)
-            .createdAt(Timestamp.from(createdAt))
+            .createdAt(createdAt)
             .active(active)
             .build();
 
