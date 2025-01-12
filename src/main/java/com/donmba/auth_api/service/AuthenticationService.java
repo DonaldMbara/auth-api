@@ -42,9 +42,7 @@ public class AuthenticationService {
       HttpServletResponse response,
       BindingResult bindingResult) {
 
-    // Validate input
     if (bindingResult.hasErrors()) {
-      // Handle validation errors here
       StringBuilder errorMessages = new StringBuilder();
       for (ObjectError error : bindingResult.getAllErrors()) {
         errorMessages.append(error.getDefaultMessage()).append("; ");
@@ -56,18 +54,21 @@ public class AuthenticationService {
           .build();
     }
 
-    String userName = loginRequest.getUserName();
+    String userNameOrEmail = loginRequest.getUserName();
     String password = loginRequest.getPasswordHash();
 
-    // Authenticate user
-    User user = userRepository.findByUserName(userName);
+    // Try to find the user by either username or email
+    User user = userRepository.findByUserName(userNameOrEmail);
+    if (user == null) {
+      user = userRepository.findByEmail(userNameOrEmail);
+    }
 
     if (user == null || !passwordEncoder.matches(password, user.getPasswordHash())) {
       throw new InvalidCredentialsException("Invalid credentials");
     }
 
     // Generate token and set in cookie
-    String token = jwtUtil.generateToken(userName);
+    String token = jwtUtil.generateToken(userNameOrEmail);
     ResponseCookie cookie =
         ResponseCookie.from("authToken", token)
             .httpOnly(true)
@@ -109,7 +110,6 @@ public class AuthenticationService {
           .build();
     }
 
-    // Apply default values if necessary
     Long createdBy =
         (userRequest.getCreatedBy() != null)
             ? userRequest.getCreatedBy()

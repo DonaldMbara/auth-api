@@ -3,7 +3,7 @@ package com.donmba.auth_api.dto.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.Instant;
+import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class UserRequest {
 
   @NotBlank(message = "Username cannot be empty")
@@ -28,14 +28,7 @@ public class UserRequest {
 
   private String firstName;
   private String lastName;
-  private Instant createdAt;
+  private Timestamp createdAt;
   private Long createdBy;
   private int active;
-
-  // Builder default values for fields
-  public static class UserRequestBuilder {
-    private Instant createdAt = Instant.now(); // Default to current timestamp
-    private Long createdBy = 1L; // Default to system user
-    private int active = 1; // Default to active status
-  }
 }

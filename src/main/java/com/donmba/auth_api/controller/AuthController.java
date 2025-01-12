@@ -22,7 +22,7 @@ public class AuthController {
 
   @Operation(
       summary = "Logs in user and provide bearer token",
-      description = "Provide an username and password to give you access to the system")
+      description = "Provide an username/email and password to give you access to the system")
   @PostMapping("/login")
   public ApiResponse<String> login(
       @RequestBody AuthenticationRequest authenticationRequest,
