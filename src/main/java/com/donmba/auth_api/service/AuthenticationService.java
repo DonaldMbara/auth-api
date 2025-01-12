@@ -109,6 +109,18 @@ public class AuthenticationService {
           .build();
     }
 
+    // Apply default values if necessary
+    Long createdBy =
+        (userRequest.getCreatedBy() != null)
+            ? userRequest.getCreatedBy()
+            : 1L; // Default to system user
+    Instant createdAt =
+        (userRequest.getCreatedAt() != null)
+            ? userRequest.getCreatedAt()
+            : Instant.now(); // Default to current timestamp
+    int active =
+        (userRequest.getActive() != 0) ? userRequest.getActive() : 1; // Default to active (1)
+
     String hashedPassword = passwordEncoder.encode(userRequest.getPasswordHash());
 
     User user =
@@ -118,13 +130,9 @@ public class AuthenticationService {
             .firstName(userRequest.getFirstName())
             .lastName(userRequest.getLastName())
             .passwordHash(hashedPassword)
-            .createdBy(userRequest.getCreatedBy())
-            .createdAt(
-                Timestamp.from(
-                    userRequest.getCreatedAt() != null
-                        ? userRequest.getCreatedAt()
-                        : Instant.now()))
-            .active(userRequest.getActive())
+            .createdBy(createdBy)
+            .createdAt(Timestamp.from(createdAt))
+            .active(active)
             .build();
 
     userRepository.save(user);
